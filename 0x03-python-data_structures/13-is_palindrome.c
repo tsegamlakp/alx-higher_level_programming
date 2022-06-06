@@ -1,72 +1,83 @@
 #include "lists.h"
-
-listint_t *reverse_listint(listint_t **head);
-int is_palindrome(listint_t **head);
-
 /**
- * reverse_listint - Reverses a singly-linked listint_t list.
- * @head: A pointer to the starting node of the list to reverse.
- *
- * Return: A pointer to the head of the reversed list.
- */
-listint_t *reverse_listint(listint_t **head)
+* len_list - length of linked list
+* @head: head pointer
+* Return: length of list
+*/
+int len_list(listint_t *head)
 {
-	listint_t *node = *head, *next, *prev = NULL;
+	listint_t *cur;
+	int len = 0;
 
-	while (node)
+	if (head == NULL)
+		return (0);
+	cur = head;
+	while (cur)
 	{
-		next = node->next;
-		node->next = prev;
-		prev = node;
-		node = next;
+		len++;
+		cur = cur->next;
 	}
-
-	*head = prev;
-	return (*head);
+	return (len);
 }
-
 /**
- * is_palindrome - Checks if a singly linked list is a palindrome.
- * @head: A pointer to the head of the linked list.
- *
- * Return: If the linked list is not a palindrome - 0.
- *         If the linked list is a palindrome - 1.
- */
+* is_palindrome - check if linked list is palindrome
+* @head: head pointer
+* Return: 1 if palindrome else 0
+*/
 int is_palindrome(listint_t **head)
 {
-	listint_t *tmp, *rev, *mid;
-	size_t size = 0, i;
+	listint_t *tmp, *tmp2, *cur;
+	int i = 0, len;
 
-	if (*head == NULL || (*head)->next == NULL)
+	if (head == NULL || *head == NULL)
 		return (1);
-
+	cur = *head;
 	tmp = *head;
-	while (tmp)
+	len = len_list(*head);
+	if (len == 1)
+		return (1);
+	if (len == 2)
 	{
-		size++;
-		tmp = tmp->next;
-	}
-
-	tmp = *head;
-	for (i = 0; i < (size / 2) - 1; i++)
-		tmp = tmp->next;
-
-	if ((size % 2) == 0 && tmp->n != tmp->next->n)
-		return (0);
-
-	tmp = tmp->next->next;
-	rev = reverse_listint(&tmp);
-	mid = rev;
-
-	tmp = *head;
-	while (rev)
-	{
-		if (tmp->n != rev->n)
+		if ((*head)->n == (((*head)->next)->n))
+			return (1);
+		else
 			return (0);
-		tmp = tmp->next;
-		rev = rev->next;
 	}
-	reverse_listint(&mid);
-
+	tmp2 = cur->next;
+	for (i = 0; i < (len / 2); i++)
+	{
+		if (i == 0)
+		{
+			tmp->next = NULL;
+			cur = tmp2;
+		}
+		else
+		{
+			tmp2 = cur->next;
+			cur->next = tmp;
+			tmp = cur;
+			cur = tmp2;
+		}
+	}
+	cur = tmp;
+	if (len % 2 == 0)
+	{
+		while (cur != NULL && tmp2 != NULL)
+		{
+			if (cur->n != tmp2->n)
+				return (0);
+			cur = cur->next;
+			tmp2 = tmp2->next;
+		}
+		return (1);
+	}
+	tmp2 = tmp2->next;
+	while (cur != NULL && tmp2 != NULL)
+	{
+		if (cur->n != tmp2->n)
+			return (0);
+		cur = cur->next;
+		tmp2 = tmp2->next;
+	}
 	return (1);
 }
