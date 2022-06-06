@@ -1,33 +1,50 @@
 #include "lists.h"
 
 /**
- * is_palindrome - checks if a singly linked list is a palindrome
- * @head: pointer to pointer of first node of listint_t list
- * Return: 0 if it is not a palindrome, 1 if it is a palindrome.
+ * reverse - Reverse a linked list.
+ * @head_medium: Head of the linked list.
+ * Return: void.
+ */
+void reverse(listint_t **head_medium)
+{
+	listint_t *current = *head_medium, *next = NULL, *prev = NULL;
+
+	while (current != NULL)
+	{
+		next = current->next;
+		current->next = prev;
+		prev = current;
+		current = next;
+	}
+	*head_medium = prev;
+}
+
+/**
+ * is_palindrome - Check if a linked list is a palindrome.
+ * @head: Head of the linked list.
+ * Return: 1 if it is, 0 if doesn't.
  */
 int is_palindrome(listint_t **head)
 {
-	listint_t *current;
-	int i = 0, copied_list[4000];
+	listint_t *fast, *slow, *medium, *current;
 
-	current = *head;
-	while (current)
+	fast = *head;
+	slow = *head;
+	while (fast != NULL && fast->next != NULL)
 	{
-		copied_list[i] = current->n;
-		i += 1;
-		current = current->next;
+		fast = fast->next->next;
+		slow = slow->next;
 	}
+	medium = slow;
+	reverse(&medium);
 	current = *head;
-	i -= 1;
-	while (current)
+	while (medium != NULL)
 	{
-		if (current->n == copied_list[i])
-		{
-			i -= 1;
-			current = current->next;
-		}
-		else
+		if (medium->n != current->n)
 			return (0);
+
+		medium = medium->next;
+		current = current->next;
 	}
 	return (1);
 }
