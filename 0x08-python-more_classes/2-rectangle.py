@@ -1,112 +1,62 @@
 #!/usr/bin/python3
 """
-This module defines a class Rectangle
-
+nqueens backtracking program to print the coordinates of n queens
+on an nxn grid such that they are all in non-attacking positions
 """
 
 
-class Rectangle:
+from sys import argv
 
-    """
-    Rectangle Class
+if __name__ == "__main__":
+    a = []
+    if len(argv) != 2:
+        print("Usage: nqueens N")
+        exit(1)
+    if argv[1].isdigit() is False:
+        print("N must be a number")
+        exit(1)
+    n = int(argv[1])
+    if n < 4:
+        print("N must be at least 4")
+        exit(1)
 
-    Attributes:
-        width (int): width of rectangle
-        height (int): height of rectangle
+    # initialize the answer list
+    for i in range(n):
+        a.append([i, None])
 
-    """
+    def already_exists(y):
+        """check that a queen does not already exist in that y value"""
+        for x in range(n):
+            if y == a[x][1]:
+                return True
+        return False
 
-    def __init__(self, width=0, height=0):
-        """
-        Rectangle object attributes initialization method.
+    def reject(x, y):
+        """determines whether or not to reject the solution"""
+        if (already_exists(y)):
+            return False
+        i = 0
+        while(i < x):
+            if abs(a[i][1] - y) == abs(i - x):
+                return False
+            i += 1
+        return True
 
-        Args:
-            width (int): width of Rectangle.
-            heigth (int): heigth of Rectangle.
+    def clear_a(x):
+        """clears the answers from the point of failure on"""
+        for i in range(x, n):
+            a[i][1] = None
 
-        """
-        self.width = width
-        self.height = height
+    def nqueens(x):
+        """recursive backtracking function to find the solution"""
+        for y in range(n):
+            clear_a(x)
+            if reject(x, y):
+                a[x][1] = y
+                if (x == n - 1):  # accepts the solution
+                    print(a)
+                else:
+                    nqueens(x + 1)  # moves on to next x value to continue
 
-    @property
-    def width(self):
-        """
-        Getter width method.
-
-        Returns:
-            width: Private width attribute value.
-
-        """
-        return self.__width
-
-    @width.setter
-    def width(self, value):
-        """
-        Setter width method.
-
-        Args:
-        value: width value to be setted.
-
-        Raises:
-            TypeError: when width is not a integer.
-            ValueError: when width is less than zero.
-
-        """
-        if type(value) != int:
-            raise TypeError("width must be an integer")
-        if value < 0:
-            raise ValueError("width must be >= 0")
-        self.__width = value
-
-    @property
-    def height(self):
-        """
-        Getter height method.
-
-        Returns:
-            height: Private height attribute value.
-
-        """
-        return self.__height
-
-    @height.setter
-    def height(self, value):
-        """
-        Setter height method.
-
-        Args:
-           value: height value to be setted.
-
-        Raises:
-            TypeError: when height is not a integer.
-            ValueError: when height is less than zero.
-
-        """
-        if type(value) != int:
-            raise TypeError("height must be an integer")
-        if value < 0:
-            raise ValueError("height must be >= 0")
-        self.__height = value
-
-    def area(self):
-        """
-        Rectangle area calculation method.
-
-        Returns:
-            Area of the Rectangle
-
-        """
-        return (self.__width * self.__height)
-
-    def perimeter(self):
-        """
-        Rectangle perimeter calculation method.
-
-        Returns:
-            Perimeter of the Rectangle
-
-        """
-
-        if ((self.__width == 0) or (self.__height == 0)):
-            return 0
-        return (2 * (self.__width + self.__height))
+    # start the recursive process at x = 0
+    nqueens(0)
