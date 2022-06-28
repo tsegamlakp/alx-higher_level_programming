@@ -1,4 +1,4 @@
 #!/usr/bin/python3
-def magic_string(static={"count": 0}):
-    static["count"] += 1
-    return ', '.join(["Holberton" for i in range(static["count"])])
+def magic_string():
+    setattr(magic_string, "n", getattr(magic_string, "n", 0) + 1)
+    return ("BestSchool, " * getattr(magic_string, "n", 0))[:-2]
