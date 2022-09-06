@@ -1,5 +1,5 @@
 #!/usr/bin/node
-// JS Script
-let n = require('./100-data').list;
-console.log(n);
-console.log(n.map((x, y) => x * y));
+const list = require('./100-data').list;
+console.log(list);
+const mapped = list.map((n, i) => n * i);
+console.log(mapped);

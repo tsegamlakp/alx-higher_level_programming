@@ -1,11 +1,10 @@
 #!/usr/bin/node
-// JS Script
-let dict = require('./101-data').dict;
-let n = {};
-for (let i in dict) {
-  if (n[dict[i]] === undefined) {
-    n[dict[i]] = [];
+const dictio = require('./101-data').dict;
+const mydict = {};
+for (const key in dictio) {
+  if (mydict[dictio[key]] === undefined) {
+    mydict[dictio[key]] = [];
   }
-  n[dict[i]].push(i);
+  mydict[dictio[key]].push(key);
 }
-console.log(n);
+console.log(mydict);
