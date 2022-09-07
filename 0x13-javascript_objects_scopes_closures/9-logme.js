@@ -1,7 +1,7 @@
 #!/usr/bin/node
-// JS Script
-let n = 0;
+// Function that prints the number of arguments already printed and the argument passed.
+let args = 0;
 exports.logMe = function (item) {
-  console.log(n + ': ' + item);
-  n++;
+  console.log(`${args}: ${item}`);
+  args += 1;
 };

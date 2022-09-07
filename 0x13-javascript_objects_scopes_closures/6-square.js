@@ -1,13 +1,9 @@
 #!/usr/bin/node
-// JS Script
-module.exports = class Square extends require('./5-square') {
+// Class Square that has charPrint method
+class Square extends require('./5-square') {
   charPrint (c) {
-    if (c === undefined) {
-      c = 'X';
-    }
-
-    for (let i = 0; i < this.height; i++) {
-      console.log(c.repeat(this.width));
-    }
+    super.print(c);
   }
-};
+}
+
+module.exports = Square;

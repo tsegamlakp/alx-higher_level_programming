@@ -1,3 +1,5 @@
 #!/usr/bin/node
-// JS Script
-module.exports = class Rectangle {};
+// Empty Rectangle class
+class Rectangle {}
+
+module.exports = Rectangle;

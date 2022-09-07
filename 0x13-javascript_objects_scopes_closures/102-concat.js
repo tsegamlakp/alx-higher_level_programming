@@ -1,7 +1,4 @@
 #!/usr/bin/node
-// JS Script
-let fs = require('fs');
-let text1 = fs.readFileSync(process.argv[2], 'utf-8');
-let text2 = fs.readFileSync(process.argv[3], 'utf-8');
-fs.appendFile(process.argv[4], text1.concat(text2).trim());
-fs.appendFile(process.argv[4], '\n');
+
+const cmd = `cat ${process.argv[2]} ${process.argv[3]} > ${process.argv[4]}`;
+require('child_process').execSync(cmd).toString('UTF-8');
