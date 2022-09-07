@@ -1,4 +1,5 @@
 #!/usr/bin/node
-// JS Script
-
-myVar = 333;
+var chg = (function () {
+  myVar = 333;
+})();
+module.exports = chg;

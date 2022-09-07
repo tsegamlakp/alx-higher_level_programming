@@ -1,8 +1,5 @@
 #!/usr/bin/node
-// JS Script
-
-let num1 = parseInt(process.argv[2]);
-let num2 = parseInt(process.argv[3]);
-let res = num1 + num2;
-
-console.log(res);
+function add (a, b) {
+  return parseInt(a) + parseInt(b);
+}
+console.log(add(process.argv[2], process.argv[3]));

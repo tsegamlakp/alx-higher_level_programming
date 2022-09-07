@@ -1,14 +1,10 @@
 #!/usr/bin/node
-// JS Script
-
-let num = parseInt(process.argv[2]);
-
-if (num) {
-  for (let i = 0; i < num; i++) {
-    console.log('X'.repeat(num));
+if (process.argv[2] && parseInt(process.argv[2])) {
+  const len = process.argv[2];
+  const sqr = 'X';
+  for (let i = 0; i < len; i++) {
+    console.log(sqr.repeat(len));
   }
-} else if (num < 0) {
-  console.log('');
 } else {
   console.log('Missing size');
 }

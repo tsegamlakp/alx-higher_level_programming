@@ -1,14 +1,8 @@
 #!/usr/bin/node
-// JS Script
-
-function factorial (num) {
-  if (isNaN(num) || num <= 1) {
+function factorial (x) {
+  if (!x || x === 0) {
     return 1;
-  } else {
-    return num * factorial(num - 1);
   }
+  return factorial(x - 1) * x;
 }
-
-let num = parseInt(process.argv[2]);
-
-console.log(factorial(num));
+console.log(factorial(process.argv[2]));
