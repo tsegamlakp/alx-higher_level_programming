@@ -1,5 +1,3 @@
 #!/usr/bin/node
-var chg = (function () {
-  myVar = 333;
-})();
-module.exports = chg;
+// file that modifies the value of myVar to 333
+myVar = 333;
